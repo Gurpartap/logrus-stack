@@ -1,6 +1,8 @@
 package logrus_stack
 
 import (
+	"strings"
+
 	"github.com/Sirupsen/logrus"
 	"github.com/facebookgo/stack"
 )
@@ -52,8 +54,19 @@ func (hook LogrusStackHook) Fire(entry *logrus.Entry) error {
 		skipFrames = 6
 	}
 
+	var frames stack.Stack
+
 	// Get the complete stack track past skipFrames count.
-	frames := stack.Callers(skipFrames)
+	_frames := stack.Callers(skipFrames)
+
+	// Remove logrus's own frames that seem to appear after the code is through
+	// certain hoops. e.g. http handler in a separate package.
+	// This is a workaround.
+	for _, frame := range _frames {
+		if !strings.Contains(frame.File, "github.com/Sirupsen/logrus") {
+			frames = append(frames, frame)
+		}
+	}
 
 	if len(frames) > 0 {
 		// If we have a frame, we set it to "caller" field for assigned levels.
