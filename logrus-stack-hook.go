@@ -5,44 +5,44 @@ import (
 	"github.com/facebookgo/stack"
 )
 
-// NewHook is the initializer for logrusStackHook{} (implementing logrus.Hook).
+// NewHook is the initializer for LogrusStackHook{} (implementing logrus.Hook).
 // Set levels to callerLevels for which "caller" value may be set, providing a
 // single frame of stack. Set levels to stackLevels for which "stack" value may
 // be set, providing the full stack (minus logrus).
-func NewHook(callerLevels []logrus.Level, stackLevels []logrus.Level) logrusStackHook {
-	return logrusStackHook{
-		callerLevels: callerLevels,
-		stackLevels: stackLevels,
+func NewHook(callerLevels []logrus.Level, stackLevels []logrus.Level) LogrusStackHook {
+	return LogrusStackHook{
+		CallerLevels: callerLevels,
+		StackLevels: stackLevels,
 	}
 }
 
-// StandardHook is a convenience initializer for logrusStackHook{} with
+// StandardHook is a convenience initializer for LogrusStackHook{} with
 // default args.
-func StandardHook() logrusStackHook {
-	return logrusStackHook{
-		callerLevels: logrus.AllLevels,
-		stackLevels: []logrus.Level{logrus.PanicLevel, logrus.FatalLevel, logrus.ErrorLevel},
+func StandardHook() LogrusStackHook {
+	return LogrusStackHook{
+		CallerLevels: logrus.AllLevels,
+		StackLevels: []logrus.Level{logrus.PanicLevel, logrus.FatalLevel, logrus.ErrorLevel},
 	}
 }
 
-// logrusStackHook is an implementation of logrus.Hook interface.
-type logrusStackHook struct {
-	// Set levels to callerLevels for which "caller" value may be set,
+// LogrusStackHook is an implementation of logrus.Hook interface.
+type LogrusStackHook struct {
+	// Set levels to CallerLevels for which "caller" value may be set,
 	// providing a single frame of stack.
-	callerLevels []logrus.Level
+	CallerLevels []logrus.Level
 
-	// Set levels to stackLevels for which "stack" value may be set,
+	// Set levels to StackLevels for which "stack" value may be set,
 	// providing the full stack (minus logrus).
-	stackLevels  []logrus.Level
+	StackLevels  []logrus.Level
 }
 
 // Levels provides the levels to filter.
-func (hook logrusStackHook) Levels() []logrus.Level {
+func (hook LogrusStackHook) Levels() []logrus.Level {
 	return logrus.AllLevels
 }
 
 // Fire is called by logrus when something is logged.
-func (hook logrusStackHook) Fire(entry *logrus.Entry) error {
+func (hook LogrusStackHook) Fire(entry *logrus.Entry) error {
 	var skipFrames int
 	if len(entry.Data) == 0 {
 		// When WithField(s) is not used, we have 8 logrus frames to skip.
@@ -57,7 +57,7 @@ func (hook logrusStackHook) Fire(entry *logrus.Entry) error {
 
 	if len(frames) > 0 {
 		// If we have a frame, we set it to "caller" field for assigned levels.
-		for _, level := range hook.callerLevels {
+		for _, level := range hook.CallerLevels {
 			if entry.Level == level {
 				entry.Data["caller"] = frames[0]
 				break
@@ -65,7 +65,7 @@ func (hook logrusStackHook) Fire(entry *logrus.Entry) error {
 		}
 
 		// Set the available frames to "stack" field.
-		for _, level := range hook.stackLevels {
+		for _, level := range hook.StackLevels {
 			if entry.Level == level {
 				entry.Data["stack"] = frames
 				break

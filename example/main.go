@@ -26,7 +26,7 @@ func (w Worker) Perform() {
 
 func main() {
 	// Setup logrus.
-	logrus.SetFormatter(&logrus.TextFormatter{})
+	logrus.SetFormatter(&logrus.JSONFormatter{})
 	logrus.SetOutput(os.Stderr)
 
 	// Add the stack hook.

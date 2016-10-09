@@ -1,4 +1,4 @@
-# logrus-stack
+# logrus-stack 🎯
 [![GoDoc](https://godoc.org/github.com/Gurpartap/logrus-stack?status.svg)](https://godoc.org/github.com/Gurpartap/logrus-stack)
 
 ## Introduction
@@ -11,7 +11,7 @@ The values play well with `logrus.TextFormatter{}` as well as `logrus.JSONFormat
 
 ## Doc
 
-There's not much to it, see usage and [GoDoc](https://godoc.org/github.com/Gurpartap/logrus-stack).
+There's not much to it. See usage and [GoDoc](https://godoc.org/github.com/Gurpartap/logrus-stack).
 
 ## Usage
 
@@ -137,6 +137,6 @@ github.com/Gurpartap/logrus-stack/example/main.go:36            main
 /usr/local/Cellar/go/1.7.1/libexec/src/runtime/asm_amd64.s:2086 goexit
 ```
 
-Follow me: https://twitter.com/Gurpartap
+Hello 👋
 
-Bye.
+Follow me on https://twitter.com/Gurpartap
