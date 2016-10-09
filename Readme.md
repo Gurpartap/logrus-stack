@@ -1,8 +1,6 @@
 # logrus-stack 🎯
 [![GoDoc](https://godoc.org/github.com/Gurpartap/logrus-stack?status.svg)](https://godoc.org/github.com/Gurpartap/logrus-stack)
 
-## Introduction
-
 logrus-stack provides [facebookgo/stack](https://github.com/facebookgo/stack) integration hook for [Sirupsen/logrus](https://github.com/Sirupsen/logrus).
 
 Instead of setting file, line, and func name values individually, this hook sets "caller" and/or "stack" objects containing file, line and func name.
@@ -14,6 +12,10 @@ The values play well with `logrus.TextFormatter{}` as well as `logrus.JSONFormat
 There's not much to it. See usage and [GoDoc](https://godoc.org/github.com/Gurpartap/logrus-stack).
 
 ## Usage
+
+```bash
+$ go get github.com/Gurpartap/logrus-stack
+```
 
 ```go
 logrus.AddHook(logrus_stack.StandardHook())
