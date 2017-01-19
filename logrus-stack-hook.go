@@ -14,7 +14,7 @@ import (
 func NewHook(callerLevels []logrus.Level, stackLevels []logrus.Level) LogrusStackHook {
 	return LogrusStackHook{
 		CallerLevels: callerLevels,
-		StackLevels: stackLevels,
+		StackLevels:  stackLevels,
 	}
 }
 
@@ -23,7 +23,7 @@ func NewHook(callerLevels []logrus.Level, stackLevels []logrus.Level) LogrusStac
 func StandardHook() LogrusStackHook {
 	return LogrusStackHook{
 		CallerLevels: logrus.AllLevels,
-		StackLevels: []logrus.Level{logrus.PanicLevel, logrus.FatalLevel, logrus.ErrorLevel},
+		StackLevels:  []logrus.Level{logrus.PanicLevel, logrus.FatalLevel, logrus.ErrorLevel},
 	}
 }
 
@@ -35,7 +35,7 @@ type LogrusStackHook struct {
 
 	// Set levels to StackLevels for which "stack" value may be set,
 	// providing the full stack (minus logrus).
-	StackLevels  []logrus.Level
+	StackLevels []logrus.Level
 }
 
 // Levels provides the levels to filter.
@@ -47,11 +47,11 @@ func (hook LogrusStackHook) Levels() []logrus.Level {
 func (hook LogrusStackHook) Fire(entry *logrus.Entry) error {
 	var skipFrames int
 	if len(entry.Data) == 0 {
-		// When WithField(s) is not used, we have 8 logrus frames to skip.
-		skipFrames = 8
+		// When WithField(s) is not used, we have 7 logrus frames to skip.
+		skipFrames = 7
 	} else {
-		// When WithField(s) is used, we have 6 logrus frames to skip.
-		skipFrames = 6
+		// When WithField(s) is used, we have 5 logrus frames to skip.
+		skipFrames = 5
 	}
 
 	var frames stack.Stack
