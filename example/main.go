@@ -5,7 +5,7 @@ import (
 	"os"
 
 	"github.com/Gurpartap/logrus-stack"
-	"github.com/Sirupsen/logrus"
+	"github.com/sirupsen/logrus"
 )
 
 type Worker struct {
