@@ -3,8 +3,8 @@ package logrus_stack
 import (
 	"strings"
 
-	"github.com/Sirupsen/logrus"
 	"github.com/facebookgo/stack"
+	"github.com/sirupsen/logrus"
 )
 
 // NewHook is the initializer for LogrusStackHook{} (implementing logrus.Hook).
@@ -14,7 +14,7 @@ import (
 func NewHook(callerLevels []logrus.Level, stackLevels []logrus.Level) LogrusStackHook {
 	return LogrusStackHook{
 		CallerLevels: callerLevels,
-		StackLevels: stackLevels,
+		StackLevels:  stackLevels,
 	}
 }
 
@@ -23,7 +23,7 @@ func NewHook(callerLevels []logrus.Level, stackLevels []logrus.Level) LogrusStac
 func StandardHook() LogrusStackHook {
 	return LogrusStackHook{
 		CallerLevels: logrus.AllLevels,
-		StackLevels: []logrus.Level{logrus.PanicLevel, logrus.FatalLevel, logrus.ErrorLevel},
+		StackLevels:  []logrus.Level{logrus.PanicLevel, logrus.FatalLevel, logrus.ErrorLevel},
 	}
 }
 
@@ -35,7 +35,7 @@ type LogrusStackHook struct {
 
 	// Set levels to StackLevels for which "stack" value may be set,
 	// providing the full stack (minus logrus).
-	StackLevels  []logrus.Level
+	StackLevels []logrus.Level
 }
 
 // Levels provides the levels to filter.
@@ -63,7 +63,7 @@ func (hook LogrusStackHook) Fire(entry *logrus.Entry) error {
 	// certain hoops. e.g. http handler in a separate package.
 	// This is a workaround.
 	for _, frame := range _frames {
-		if !strings.Contains(frame.File, "github.com/Sirupsen/logrus") {
+		if !strings.Contains(frame.File, "github.com/sirupsen/logrus") {
 			frames = append(frames, frame)
 		}
 	}
