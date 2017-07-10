@@ -1,7 +1,7 @@
 # logrus-stack 🎯
 [![GoDoc](https://godoc.org/github.com/Gurpartap/logrus-stack?status.svg)](https://godoc.org/github.com/Gurpartap/logrus-stack)
 
-logrus-stack provides [facebookgo/stack](https://github.com/facebookgo/stack) integration hook for [Sirupsen/logrus](https://github.com/Sirupsen/logrus).
+logrus-stack provides [facebookgo/stack](https://github.com/facebookgo/stack) integration hook for [sirupsen/logrus](https://github.com/sirupsen/logrus).
 
 Instead of setting file, line, and func name values individually, this hook sets "caller" and/or "stack" objects containing file, line and func name.
 
@@ -39,7 +39,7 @@ import (
 	"os"
 
 	"github.com/Gurpartap/logrus-stack"
-	"github.com/Sirupsen/logrus"
+	"github.com/sirupsen/logrus"
 )
 
 type Worker struct {
